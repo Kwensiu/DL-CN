@@ -18,10 +18,42 @@
             "百度网盘"
         ]
     ],
-    "persist": "users",
+    "persist": [
+        "users",
+        "BaiduNetdiskData",
+        "baidunetdisk"
+    ],
+    "installer": {
+        "script": [
+            "Start-Process -Wait -FilePath \"$dir\\BaiduNetdisk_$version.exe\" -ArgumentList '/S'",
+            "",
+            "New-Item -ItemType Directory -Force -Path \"$persist_dir\\BaiduNetdiskData\" | Out-Null",
+            "$baiduNetdiskPath = \"$persist_dir\\baidunetdisk\"",
+            "New-Item -ItemType Directory -Force -Path $baiduNetdiskPath | Out-Null",
+            "$subDirs = @(",
+            "    'Code Cache\\js',",
+            "    'Code Cache\\wasm',",
+            "    'IndexedDB',",
+            "    'Local Storage',",
+            "    'Storage\\ext\\fake-host\\def',",
+            "    'DawnCache',",
+            "    'GPCuCache'",
+            ")",
+            "foreach ($subDir in $subDirs) {",
+            "    New-Item -ItemType Directory -Force -Path \"$baiduNetdiskPath\\$subDir\" | Out-Null",
+            "}",
+            "$roamingPath = [Environment]::GetFolderPath('ApplicationData')",
+            "$targetBaiduDir = \"$roamingPath\\baidunetdisk\"",
+            "if (Test-Path $targetBaiduDir) {",
+            "    Remove-Item $targetBaiduDir -Force -Recurse -ErrorAction SilentlyContinue",
+            "}",
+            "New-Item -ItemType Junction -Path $targetBaiduDir -Target $baiduNetdiskPath -Force | Out-Null"
+        ]
+    },
     "post_install": [
-        "Remove-Item \"$dir\\`$PLUGINSDIR\" -Recurse",
-        "Remove-Item \"$dir\\`$TEMP\" -Recurse"
+        "Remove-Item \"$dir\\BaiduNetdisk_*.exe\" -ErrorAction SilentlyContinue",
+        "Remove-Item \"$dir\\`$PLUGINSDIR\" -Recurse -ErrorAction SilentlyContinue",
+        "Remove-Item \"$dir\\`$TEMP\" -Recurse -ErrorAction SilentlyContinue"
     ],
     "pre_uninstall": [
         "$processName = \"YunDetectService\"",
@@ -33,17 +65,17 @@
         "}"
     ],
     "post_uninstall": [
-        "$baiduCache = \"$env:APPDATA\\Baidu\"",
-        "$baiduLog = \"$env:APPDATA\\BaiduYunGuanjia\"",
-        "$runtimeCache = \"$env:APPDATA\\BaiduYunKernel\"",
-        "if (Test-Path \"$baiduCache\") {",
-        "Remove-Item $baiduCache -Force -Recurse -ErrorAction SilentlyContinue",
-        "}",
-        "if (Test-Path \"$baiduLog\") {",
-        "Remove-Item $baiduLog -Force -Recurse -ErrorAction SilentlyContinue",
-        "}",
-        "if (Test-Path \"$runtimeCache\") {",
-        "Remove-Item $runtimeCache -Force -Recurse -ErrorAction SilentlyContinue",
+        "$roamingPath = [Environment]::GetFolderPath('ApplicationData')",
+        "$baiduDirs = @(",
+        "    \"$roamingPath\\baidunetdisk\",",
+        "    \"$env:APPDATA\\BaiduYunGuanjia\",",
+        "    \"$env:APPDATA\\BaiduYunKernel\",",
+        "    \"$env:LOCALAPPDATA\\BaiduYunKernel\"",
+        ")",
+        "foreach ($dirPath in $baiduDirs) {",
+        "    if (Test-Path \"$dirPath\") {",
+        "        Remove-Item \"$dirPath\" -Force -Recurse -ErrorAction SilentlyContinue",
+        "    }",
         "}"
     ],
     "checkver": {
