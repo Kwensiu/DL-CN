@@ -25,7 +25,7 @@
     "installer": {
         "script": [
             "# 1. 停止可能正在运行的百度网盘进程",
-            "$baiduProcesses = @('BaiduNetdisk', 'BaiduNetdiskHost', 'YunDetectService',aiduYunGuanjia')",
+            "$baiduProcesses = @('BaiduNetdisk', 'BaiduNetdiskHost', 'YunDetectService','baiduYunGuanjia')",
             "foreach ($proc in $baiduProcesses) {",
             "    Get-Process -Name $proc -ErrorAction SilentlyContinue | Stop-Process -Force",
             "}",
