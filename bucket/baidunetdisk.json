@@ -164,7 +164,7 @@
         ")",
         "foreach ($cacheDir in $cacheDirs) {",
         "    if (Test-Path $cacheDir) {",
-        "        Remove-Item $cacheDir -Force -RecErrorAction SilentlyContinue",
+        "        Remove-Item $cacheDir -Force -ErrorAction SilentlyContinue",
         "    }",
         "}"
     ],
