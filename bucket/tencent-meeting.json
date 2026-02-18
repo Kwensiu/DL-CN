@@ -1,13 +1,13 @@
 {
-    "version": "3.40.2.407",
+    "version": "3.41.10.435",
     "description": "一站式音视频会议解决方案",
     "homepage": "https://meeting.tencent.com/",
     "license": {
         "identifier": "Proprietary",
         "url": "https://meeting.tencent.com/declare.html"
     },
-    "url": "https://updatecdn.meeting.qq.com/cos/094ae549509699a3a0d1095de2756464/TencentMeeting_0300000000_3.40.2.407_x86_64.publish.officialwebsite.exe#/dl.7z",
-    "hash": "56b3a9e9d05f2ff698e0a1a4d1576c22b08c83674da7cd7882d246b4d6ade5ef",
+    "url": "https://updatecdn.meeting.qq.com/cos/300f04a98325264e070897991b2bfe78/TencentMeeting_0300000000_3.41.10.435_x86_64.publish.officialwebsite.exe#/dl.7z",
+    "hash": "0c1fe0faa642416e8714be559ced134ff14e0098e895d43dd37ad1445c54c6b4",
     "post_install": [
         "Get-ChildItem \"$dir\\`$_*\" | Rename-Item -NewName \"$version\" -Force",
         "Remove-Item \"$dir\\`$*\" -Recurse -Force -ErrorAction SilentlyContinue",

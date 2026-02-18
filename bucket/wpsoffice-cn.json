@@ -1,5 +1,5 @@
 {
-    "version": "12.1.0.24034",
+    "version": "12.1.0.25225",
     "description": "WPS Office，让你高效解决办公问题",
     "homepage": "https://wps.cn/",
     "license": {
@@ -8,8 +8,8 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://official-package.wpscdn.cn/wps/download/WPS_Setup_24034.exe",
-            "hash": "a44568decaa6f94c70d8d9f050ea195f2d778c41813b6e23331eda4743787154"
+            "url": "https://official-package.wpscdn.cn/wps/download/WPS_Setup_25225.exe",
+            "hash": "5871cdeee9ba05b8f77b9193481fb007357c93840bb75c741a6bba64d18218c0"
         }
     },
     "pre_install": [
